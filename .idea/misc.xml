@@ -10,6 +10,15 @@
         <entry key="..\:/Android/Tnw_Driver_Tasks-master/app/src/main/res/layout/cardview_for_tasks.xml" value="0.215625" />
         <entry key="..\:/Android/Tnw_Driver_Tasks-master/app/src/main/res/mipmap-anydpi-v26/backicon.xml" value="0.1575" />
         <entry key="..\:/Android/Tnw_Driver_Tasks-master/app/src/main/res/mipmap-anydpi-v26/backicon_round.xml" value="0.1" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/background_for_hidingdeliveryicon.xml" value="0.1195" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/background_for_loginform.xml" value="0.1195" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/background_for_loginformmainlayout.xml" value="0.1315" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/background_for_loginlogo.xml" value="0.1195" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_date_picker.xml" value="0.215625" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_main.xml" value="0.215625" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_map_box.xml" value="0.215625" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_mapbox_custom_view_navigation.xml" value="0.1140625" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/cardview_for_tasks.xml" value="0.215625" />
         <entry key="..\:/tnw_driver_navigation/app/src/main/res/drawable/background_for_loginform.xml" value="0.3536458333333333" />
         <entry key="..\:/tnw_driver_navigation/app/src/main/res/drawable/background_for_loginformmainlayout.xml" value="0.3536458333333333" />
         <entry key="..\:/tnw_driver_navigation/app/src/main/res/drawable/location_icon.xml" value="0.346782431052094" />

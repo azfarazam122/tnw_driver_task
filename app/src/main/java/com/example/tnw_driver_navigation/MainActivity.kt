@@ -28,42 +28,43 @@ class MainActivity : AppCompatActivity() {
             val userName = findViewById<TextView>(R.id.usernameTextView)
             val password = findViewById<TextView>(R.id.passwordTextView)
 
-            val httpAsync =
-                "https://www.emeraldsoft.uk/projects/hamza/tnw_retail_calculator_1_2_4/web_services/mobile/login.php"
-                    .httpPost(
-                        listOf(
-                            "user" to userName.text.toString(),
-                            "password" to password.text.toString()
-                        )
+            val httpAsync = Constants.login
+                .httpPost(
+                    listOf(
+                        "user" to userName.text.toString(),
+                        "password" to password.text.toString()
                     )
-                    .responseString { request, response, result ->
-                        when (result) {
-                            is Result.Failure -> {
-                                val ex = result.getException()
+                )
+                .responseString { request, response, result ->
+                    when (result) {
+                        is Result.Failure -> {
+                            val ex = result.getException()
 
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Login Failed",
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
+                            Toast.makeText(
+                                applicationContext,
+                                "Login Failed",
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
 
-                            }
-                            is Result.Success -> {
-                                val data = result.get()
-                                val json_data = JSONObject(data)
-                                if (json_data["status"] == "success") {
-                                    val intent =
-                                        Intent(this@MainActivity, DatePickerActivity::class.java)
-                                    val idOfDriver = json_data["status"]
+                        }
+                        is Result.Success -> {
+                            val data = result.get()
+                            val json_data = JSONObject(data)
+                            if (json_data["status"] == "success") {
+                                val intent =
+                                    Intent(this@MainActivity, DatePickerActivity::class.java)
+                                val idOfDriver = json_data["status"]
 //                                    intent.putExtra("driverId", json_data["id"].toString())
-                                    driverId = json_data["id"].toString()
-                                    startActivity(intent)
-                                }
-
+                                driverId = json_data["id"].toString()
+                                driverId = json_data["id"].toString()
+                                driverId = json_data["id"].toString()
+                                startActivity(intent)
                             }
+
                         }
                     }
+                }
 
             httpAsync.join()
 

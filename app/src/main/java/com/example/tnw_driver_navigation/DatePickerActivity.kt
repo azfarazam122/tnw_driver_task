@@ -50,6 +50,10 @@ class DatePickerActivity : AppCompatActivity() {
         backText.setOnClickListener {
             goingBackToLoginPage()
         }
+
+        updateDateInView()
+
+
         taskRecyclerView = findViewById(R.id.recyclerViewForTasks)
 
         //    taskRecyclerView.layoutManager =
@@ -57,7 +61,7 @@ class DatePickerActivity : AppCompatActivity() {
         taskLinearLayoutManager = LinearLayoutManager(this)
         taskRecyclerView.layoutManager = taskLinearLayoutManager
 
-        taskRecyclerView.adapter = TaskAdapter(taskArrayList)
+        taskRecyclerView.adapter = TaskAdapter(taskArrayList, this@DatePickerActivity)
         // create an OnDateSetListener
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(
@@ -67,6 +71,7 @@ class DatePickerActivity : AppCompatActivity() {
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                taskArrayList.clear()
                 updateDateInView()
 
 //                val users = ArrayList<TaskApiConstants>()
@@ -83,10 +88,10 @@ class DatePickerActivity : AppCompatActivity() {
                 val textViewIfNoTaskFound = findViewById<TextView>(R.id.ifNoTaskFound)
                 if (taskArrayList.size < 1) {
                     textViewIfNoTaskFound.text = "No Task Found"
-                    taskRecyclerView.adapter = TaskAdapter(taskArrayList)
+                    taskRecyclerView.adapter = TaskAdapter(taskArrayList, this@DatePickerActivity)
                 } else {
                     textViewIfNoTaskFound.text = ""
-                    taskRecyclerView.adapter = TaskAdapter(taskArrayList)
+                    taskRecyclerView.adapter = TaskAdapter(taskArrayList, this@DatePickerActivity)
                 }
             }
         }
@@ -116,7 +121,7 @@ class DatePickerActivity : AppCompatActivity() {
 //        ______________________________________
 //        Getting All The Tasks
         val httpAsync =
-            "https://www.emeraldsoft.uk/projects/hamza/tnw_retail_calculator_1_2_4/web_services/mobile/getDriverTasks.php"
+            Constants.taskList
                 .httpPost(
                     listOf(
                         "date" to dateSelected,
@@ -138,7 +143,7 @@ class DatePickerActivity : AppCompatActivity() {
                         }
                         is Result.Success -> {
                             val data = result.get()
-                            taskArrayList = arrayListOf<TaskApiConstants>()
+
 
                             val json_data = JSONObject(data)
 //                            val json_data_data = JSONObject(json_data["data"])
@@ -158,6 +163,14 @@ class DatePickerActivity : AppCompatActivity() {
                                     (arrayCurrentTask[i] as JSONObject).getString("start_delivery")
                                 task.taskEndDelivery =
                                     (arrayCurrentTask[i] as JSONObject).getString("end_delivery")
+                                task.taskPhone =
+                                    (arrayCurrentTask[i] as JSONObject).getString("phone")
+                                task.taskType =
+                                    (arrayCurrentTask[i] as JSONObject).getString("type")
+                                task.taskHaveAddOn =
+                                    (arrayCurrentTask[i] as JSONObject).getString("have_add_ons")
+                                task.taskIsPaid =
+                                    (arrayCurrentTask[i] as JSONObject).getString("is_paid")
 
                                 taskArrayList.add(task)
                             }

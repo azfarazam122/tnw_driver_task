@@ -5,5 +5,9 @@ data class TaskApiConstants(
     var taskId: Int? = null,
     var taskTimeSlot: String? = null,
     var taskStartDelivery: String? = null,
-    var taskEndDelivery: String? = null
+    var taskEndDelivery: String? = null,
+    var taskPhone: String? = null,
+    var taskType: String? = null,
+    var taskHaveAddOn: String? = null,
+    var taskIsPaid: String? = null
 )
