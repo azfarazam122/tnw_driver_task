@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">tnw_driver_navigation</string>
+    <string name="access_token">sk.eyJ1IjoiZW1lcmFsZHNvZnQzIiwiYSI6ImNsMDI4YmsweTAwcXMzbnFkN2NheWN2cXIifQ.eM00GFmtZlAse0wAZIfYlQ</string>
 </resources>

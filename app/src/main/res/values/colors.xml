@@ -7,4 +7,80 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="mapbox_navigation_route_alternative_color">#8694A5</color>
+    <color name="mapbox_navigation_route_alternative_congestion_red">#B58281</color>
+    <color name="mapbox_navigation_route_alternative_congestion_yellow">#BEA087</color>
+    <color name="mapbox_navigation_route_alternative_shield_color">#727E8D</color>
+    <color name="mapbox_navigation_route_layer_blue">#56A8FB</color>
+    <color name="mapbox_navigation_route_layer_congestion_red">#E93340</color>
+    <color name="mapbox_navigation_route_layer_congestion_yellow">#F3A64F</color>
+    <color name="mapbox_navigation_route_shield_layer_color">#2F7AC6</color>
+    <color name="mapbox_navigation_route_upcoming_maneuver_arrow_border_color">#2D3F53</color>
+    <color name="mapbox_navigation_route_upcoming_maneuver_arrow_color">#FFFFFF</color>
+    <color name="mapbox_navigation_view_color_accent">#4882C6</color>
+    <color name="mapbox_navigation_view_color_accent_dark">#FFFFFF</color>
+    <color name="mapbox_navigation_view_color_accent_text">#424242</color>
+    <color name="mapbox_navigation_view_color_accent_text_dark">#FFFFFF</color>
+    <color name="mapbox_navigation_view_color_banner_background">#37516F</color>
+    <color name="mapbox_navigation_view_color_banner_background_dark">#37516F</color>
+    <color name="mapbox_navigation_view_color_banner_maneuver_primary">#FFFFFF</color>
+    <color name="mapbox_navigation_view_color_banner_maneuver_primary_dark">#FFFFFF</color>
+    <color name="mapbox_navigation_view_color_banner_maneuver_secondary">#4DFFFFFF</color>
+    <color name="mapbox_navigation_view_color_banner_maneuver_secondary_dark">#4DFFFFFF</color>
+    <color name="mapbox_navigation_view_color_banner_primary_text">#FFFFFF</color>
+    <color name="mapbox_navigation_view_color_banner_primary_text_dark">#FFFFFF</color>
+    <color name="mapbox_navigation_view_color_banner_secondary_text">#E6FFFFFF</color>
+    <color name="mapbox_navigation_view_color_banner_secondary_text_dark">#E6FFFFFF</color>
+    <color name="mapbox_navigation_view_color_divider">#D8D8D8</color>
+    <color name="mapbox_navigation_view_color_divider_dark">#D8D8D8</color>
+    <color name="mapbox_navigation_view_color_list_background">#2D3F53</color>
+    <color name="mapbox_navigation_view_color_list_background_dark">#2D3F53</color>
+    <color name="mapbox_navigation_view_color_primary">#FFFFFF</color>
+    <color name="mapbox_navigation_view_color_primary_dark">#2D3F53</color>
+    <color name="mapbox_navigation_view_color_primary_text">#424242</color>
+    <color name="mapbox_navigation_view_color_primary_text_dark">#424242</color>
+    <color name="mapbox_navigation_view_color_progress">#4B75A4</color>
+    <color name="mapbox_navigation_view_color_progress_background">#39587B</color>
+    <color name="mapbox_navigation_view_color_progress_background_dark">#39587B</color>
+    <color name="mapbox_navigation_view_color_progress_dark">#4B75A4</color>
+    <color name="mapbox_navigation_view_color_secondary">#28353D</color>
+    <color name="mapbox_navigation_view_color_secondary_dark">#D8D8D8</color>
+    <color name="md_grey_200">#EEEEEE</color>
+    <color name="md_grey_400">#BDBDBD</color>
+    <color name="md_grey_500">#9E9E9E</color>
+    <color name="md_grey_700">#616161</color>
+    <color name="md_grey_800">#424242</color>
+    <color name="md_grey_900">#212121</color>
+    <dimen name="fab_feedback_margin_top">16dp</dimen>
+    <dimen name="fab_margin_bottom">8dp</dimen>
+    <dimen name="feedback_item_margin">8dp</dimen>
+    <dimen name="feedback_item_margin_top">16dp</dimen>
+    <dimen name="report_feedback_padding_16">16dp</dimen>
+    <dimen name="report_feedback_padding_24">24dp</dimen>
+    <dimen name="wayname_bottom_padding">8dp</dimen>
+    <dimen name="wayname_padding">16dp</dimen>
+    <dimen name="wayname_padding_bottom">2dp</dimen>
+    <string name="dropoff_dialog_negative_text">Cancel</string>
+    <string name="dropoff_dialog_positive_text">Start next</string>
+    <string name="dropoff_dialog_text">Do you want to navigate to next destination?</string>
+    <string name="feedback_bad_route">Inefficient or\nBad Route</string>
+    <string name="feedback_confusing_instruction">Confusing\nInstruction</string>
+    <string name="feedback_missing_exit">Missing\nExit</string>
+    <string name="feedback_missing_road">Missing\nRoad</string>
+    <string name="feedback_not_allowed">Not\nAllowed</string>
+    <string name="feedback_road_closure">Road\nClosed</string>
+    <string name="feedback_submitted">Feedback Submitted</string>
+    <string name="muted">Muted</string>
+    <string name="navigation_guidance_day" translatable="false">mapbox://styles/mapbox/navigation-guidance-day-v4</string>
+    <string name="navigation_streets_view" translatable="false">mapbox://styles/mapbox/streets-v11</string>
+    <string name="navigation_traffic_day" translatable="false">mapbox://styles/mapbox/traffic-day-v2</string>
+    <string name="navigation_guidance_night" translatable="false">mapbox://styles/mapbox/navigation-guidance-night-v4</string>
+    <string name="navigation_running" translatable="false">navigation_running</string>
+    <string name="navigation_view_instance_state" translatable="false">navigation_view_instance_state</string>
+    <string name="re_center">Re-center</string>
+    <string name="report_feedback">Report feedback</string>
+    <string name="report_problem">Report Problem</string>
+    <string name="rerouting">Rerouting…</string>
+    <string name="unmuted">Unmuted</string>
 </resources>

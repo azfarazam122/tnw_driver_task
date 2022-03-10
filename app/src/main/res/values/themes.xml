@@ -13,4 +13,153 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="NavigationLocationLayerStyle" parent="@style/mapbox_LocationComponent">
+        <item name="mapbox_trackingAnimationDurationMultiplier">2.0</item>
+        <item name="mapbox_trackingGesturesManagement">true</item>
+    </style>
+    <style name="NavigationMapRoute">
+        <!-- Colors -->
+        <item name="routeColor">@color/mapbox_navigation_route_layer_blue</item>
+        <item name="routeModerateCongestionColor">@color/mapbox_navigation_route_layer_congestion_yellow</item>
+        <item name="routeSevereCongestionColor">@color/mapbox_navigation_route_layer_congestion_red</item>
+        <item name="routeShieldColor">@color/mapbox_navigation_route_shield_layer_color</item>
+
+        <!-- Scales -->
+        <item name="routeScale">1.0</item>
+        <item name="upcomingManeuverArrowColor">@color/mapbox_navigation_route_upcoming_maneuver_arrow_color</item>
+        <item name="upcomingManeuverArrowBorderColor">@color/mapbox_navigation_route_upcoming_maneuver_arrow_border_color</item>
+
+        <!-- Expression styling -->
+        <item name="roundedLineCap">true</item>
+    </style>
+    <style name="NavigationViewDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="navigationViewPrimary">@color/mapbox_navigation_view_color_primary_dark</item>
+        <item name="navigationViewSecondary">@color/mapbox_navigation_view_color_secondary_dark</item>
+        <item name="navigationViewAccent">@color/mapbox_navigation_view_color_accent_dark</item>
+        <item name="navigationViewPrimaryText">@color/mapbox_navigation_view_color_secondary_dark</item>
+        <item name="navigationViewSecondaryText">@color/mapbox_navigation_view_color_accent_text_dark</item>
+        <item name="navigationViewDivider">@color/mapbox_navigation_view_color_divider_dark</item>
+
+        <item name="navigationViewListBackground">@color/mapbox_navigation_view_color_list_background_dark</item>
+
+        <item name="navigationViewBannerBackground">@color/mapbox_navigation_view_color_banner_background_dark</item>
+        <item name="navigationViewBannerPrimaryText">@color/mapbox_navigation_view_color_banner_primary_text_dark</item>
+        <item name="navigationViewBannerSecondaryText">@color/mapbox_navigation_view_color_banner_secondary_text_dark</item>
+        <item name="navigationViewBannerManeuverPrimary">@color/mapbox_navigation_view_color_banner_maneuver_primary_dark</item>
+        <item name="navigationViewBannerManeuverSecondary">@color/mapbox_navigation_view_color_banner_maneuver_secondary_dark</item>
+
+        <item name="navigationViewProgress">@color/mapbox_navigation_view_color_progress_dark</item>
+        <item name="navigationViewProgressBackground">@color/mapbox_navigation_view_color_progress_background_dark</item>
+
+        <item name="navigationViewRouteStyle">@style/NavigationMapRoute</item>
+
+        <item name="navigationViewLocationLayerStyle">@style/NavigationLocationLayerStyle</item>
+
+
+
+        <item name="navigationViewMapStyle">@string/navigation_guidance_night</item>
+    </style>
+    <style name="NavigationViewLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="navigationViewPrimary">@color/mapbox_navigation_view_color_primary</item>
+        <item name="navigationViewSecondary">@color/mapbox_navigation_view_color_secondary</item>
+        <item name="navigationViewAccent">@color/mapbox_navigation_view_color_accent</item>
+        <item name="navigationViewPrimaryText">@color/mapbox_navigation_view_color_secondary</item>
+        <item name="navigationViewSecondaryText">@color/mapbox_navigation_view_color_accent_text</item>
+        <item name="navigationViewDivider">@color/mapbox_navigation_view_color_divider</item>
+
+        <item name="navigationViewListBackground">@color/mapbox_navigation_view_color_list_background</item>
+
+        <item name="navigationViewBannerBackground">@color/mapbox_navigation_view_color_banner_background</item>
+        <item name="navigationViewBannerPrimaryText">@color/mapbox_navigation_view_color_banner_primary_text</item>
+        <item name="navigationViewBannerSecondaryText">@color/mapbox_navigation_view_color_banner_secondary_text</item>
+        <item name="navigationViewBannerManeuverPrimary">@color/mapbox_navigation_view_color_banner_maneuver_primary</item>
+        <item name="navigationViewBannerManeuverSecondary">@color/mapbox_navigation_view_color_banner_maneuver_secondary</item>
+
+        <item name="navigationViewProgress">@color/mapbox_navigation_view_color_progress</item>
+        <item name="navigationViewProgressBackground">@color/mapbox_navigation_view_color_progress_background</item>
+
+        <item name="navigationViewRouteStyle">@style/NavigationMapRoute</item>
+
+        <item name="navigationViewLocationLayerStyle">@style/NavigationLocationLayerStyle</item>
+
+
+
+        <item name="navigationViewMapStyle">@string/navigation_guidance_day</item>
+    </style>
+    <declare-styleable name="ManeuverView">
+        <attr format="color" name="maneuverViewPrimaryColor"/>
+        <attr format="color" name="maneuverViewSecondaryColor"/>
+    </declare-styleable>
+    <declare-styleable name="NavigationMapRoute">
+        <!-- Primary route colors -->
+        <attr format="color" name="routeColor"/>
+        <attr format="color" name="routeModerateCongestionColor"/>
+        <attr format="color" name="routeSevereCongestionColor"/>
+        <attr format="color" name="routeShieldColor"/>
+
+        <!-- Alternative route colors -->
+        <attr format="color" name="alternativeRouteColor"/>
+        <attr format="color" name="alternativeRouteModerateCongestionColor"/>
+        <attr format="color" name="alternativeRouteSevereCongestionColor"/>
+        <attr format="color" name="alternativeRouteShieldColor"/>
+
+        <!-- Origin/Destination waypoint drawables -->
+        <attr format="reference" name="originWaypointIcon"/>
+        <attr format="reference" name="destinationWaypointIcon"/>
+
+        <!-- Route Scales -->
+        <attr format="float" name="routeScale"/>
+        <attr format="float" name="alternativeRouteScale"/>
+
+        <attr format="color" name="upcomingManeuverArrowColor"/>
+        <attr format="color" name="upcomingManeuverArrowBorderColor"/>
+
+        <!-- Rounded route line cap -->
+        <attr format="boolean" name="roundedLineCap"/>
+    </declare-styleable>
+    <declare-styleable name="NavigationView">
+        <!-- Colors -->
+        <attr format="color" name="navigationViewPrimary"/>
+        <attr format="color" name="navigationViewSecondary"/>
+        <attr format="color" name="navigationViewAccent"/>
+        <attr format="color" name="navigationViewPrimaryText"/>
+        <attr format="color" name="navigationViewSecondaryText"/>
+        <attr format="color" name="navigationViewDivider"/>
+
+        <!-- Instruction List -->
+        <attr format="color" name="navigationViewListBackground"/>
+
+        <!-- Banner -->
+        <attr format="color" name="navigationViewBannerBackground"/>
+        <attr format="color" name="navigationViewBannerPrimaryText"/>
+        <attr format="color" name="navigationViewBannerSecondaryText"/>
+        <attr format="color" name="navigationViewBannerManeuverPrimary"/>
+        <attr format="color" name="navigationViewBannerManeuverSecondary"/>
+
+        <!-- Progress Bars -->
+        <attr format="color" name="navigationViewProgress"/>
+        <attr format="color" name="navigationViewProgressBackground"/>
+
+        <!-- Map style -->
+        <attr format="string" name="navigationViewMapStyle"/>
+
+        <!-- Route style -->
+        <attr format="reference" name="navigationViewRouteStyle"/>
+
+        <!-- Location layer style -->
+        <attr format="reference" name="navigationViewLocationLayerStyle"/>
+
+        <!-- Destination marker drawable -->
+        <attr format="reference" name="navigationViewDestinationMarker"/>
+
+        <!-- Route overview drawable -->
+        <attr format="reference" name="navigationViewRouteOverviewDrawable"/>
+
+        <!-- For setting the styles in XML -->
+        <attr format="reference" name="navigationLightTheme"/>
+        <attr format="reference" name="navigationDarkTheme"/>
+    </declare-styleable>
 </resources>
+
