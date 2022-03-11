@@ -1,6 +1,7 @@
 //package com.example.tnw_driver_navigation;
 //
 //import android.os.Bundle;
+//import android.widget.Toast;
 //
 //import androidx.annotation.NonNull;
 //import androidx.appcompat.app.AppCompatActivity;
@@ -16,10 +17,12 @@
 //import com.mapbox.mapboxsdk.maps.MapboxMap;
 //import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 //import com.mapbox.mapboxsdk.maps.Style;
+//import com.mapbox.maps.CameraOptions;
 //import com.mapbox.navigation.core.MapboxNavigation;
 //
 //
-//public class MapViewJava extends AppCompatActivity implements OnMapReadyCallback {
+//
+//public class MapViewJava extends AppCompatActivity implements OnMapReadyCallback ,PermissionsListener{
 //
 //    private MapView mapView;
 //    private MapboxMap mapboxMap;
@@ -42,7 +45,17 @@
 //    @Override
 //    public void onMapReady(@NonNull final MapboxMap mapboxMap) {
 //
-//
+//        mapView.getMapboxMap().setCamera(
+//                CameraOptions.Builder()
+//                        .zoom(14.0)
+//                        .build()
+//        )
+//        mapView.getMapboxMap().loadStyleUri(
+//                Style.MAPBOX_STREETS
+//        ) {
+//            initLocationComponent()
+//            setupGesturesListener()
+//        }
 //        this.mapboxMap = mapboxMap;
 //
 //
@@ -99,7 +112,18 @@
 ////        navigationMapboxMap.addProgressChangeListener(navigation);
 //    }
 //
+//
+//
+//    @Override
+//    public void onPermissionResult(boolean granted) {
+//        if (granted) {
+//            enableLocationComponent(mapboxMap.getStyle());
+//        } else {
+//            Toast.makeText(this, "you didn't grant location permission", Toast.LENGTH_LONG).show();
+//            finish();
+//        }
+//    }
 //    }
 //
-
-
+//
+//
