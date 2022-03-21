@@ -629,7 +629,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             RouteOptions.builder()
                 .applyDefaultNavigationOptions()
                 .applyLanguageAndVoiceUnitOptions(this)
-                .coordinatesList(listOf(customOrigin, customDestination))
+                .coordinatesList(listOf(originPoint, destination))
                 // provide the bearing for the origin of the request to ensure
                 // that the returned route faces in the direction of the current user movement
                 .bearingsList(
@@ -671,7 +671,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         mapboxNavigation.setRoutes(routes)
 
         // start location simulation along the primary route
-        startSimulation(routes.first())
+//        startSimulation(routes.first())
 
         // show UI elements
         binding.soundButton.visibility = View.VISIBLE
@@ -696,14 +696,14 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         binding.tripProgressCard.visibility = View.INVISIBLE
     }
 
-    private fun startSimulation(route: DirectionsRoute) {
-        mapboxReplayer.run {
-            stop()
-            clearEvents()
-            val replayEvents = ReplayRouteMapper().mapDirectionsRouteGeometry(route)
-            pushEvents(replayEvents)
-            seekTo(replayEvents.first())
-            play()
-        }
-    }
+//    private fun startSimulation(route: DirectionsRoute) {
+//        mapboxReplayer.run {
+//            stop()
+//            clearEvents()
+//            val replayEvents = ReplayRouteMapper().mapDirectionsRouteGeometry(route)
+//            pushEvents(replayEvents)
+//            seekTo(replayEvents.first())
+//            play()
+//        }
+//    }
 }
