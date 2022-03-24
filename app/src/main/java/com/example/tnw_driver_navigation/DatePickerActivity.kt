@@ -172,6 +172,12 @@ class DatePickerActivity : AppCompatActivity() {
                                 task.taskIsPaid =
                                     (arrayCurrentTask[i] as JSONObject).getString("is_paid")
 
+                                task.taskDestinationLong =
+                                    (arrayCurrentTask[i] as JSONObject).getInt("long")
+
+                                task.taskDestinationLat =
+                                    (arrayCurrentTask[i] as JSONObject).getInt("lat")
+
                                 taskArrayList.add(task)
                             }
 

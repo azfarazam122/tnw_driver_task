@@ -15,8 +15,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tnw_driver_navigation.Constants.destinationLat
+import com.example.tnw_driver_navigation.Constants.destinationLong
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.result.Result
+import com.mapbox.navigation.examples.basics.TurnByTurnNavigation
 
 
 class TaskAdapter(val taskList: ArrayList<TaskApiConstants>, val thisActivity: Activity) :
@@ -192,6 +195,16 @@ class TaskAdapter(val taskList: ArrayList<TaskApiConstants>, val thisActivity: A
             val bundle = Bundle()
             dialIntent.data = Uri.parse("tel:" + currentItem.taskPhone.toString())
             startActivity(thisActivity, dialIntent, bundle)
+        }
+
+        holder.mapIcon.setOnClickListener {
+//            currentItem.
+            destinationLong = currentItem.taskDestinationLong.toString()
+            destinationLat = currentItem.taskDestinationLat.toString()
+            val bundle = Bundle()
+            val intent =
+                Intent(thisActivity, TurnByTurnNavigation::class.java)
+            startActivity(thisActivity, intent, bundle)
         }
 
     }

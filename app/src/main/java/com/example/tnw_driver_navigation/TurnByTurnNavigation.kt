@@ -99,7 +99,7 @@ import java.util.Locale
  * - At any point in time you can finish guidance or select a new destination.
  * - You can use buttons to mute/unmute voice instructions, recenter the camera, or show the route overview.
  */
-class TurnByTurnExperienceActivity : AppCompatActivity() {
+class TurnByTurnNavigation : AppCompatActivity() {
 
     private companion object {
         private const val BUTTON_ANIMATION_DURATION = 1500L
@@ -351,7 +351,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         maneuvers.fold(
             { error ->
                 Toast.makeText(
-                    this@TurnByTurnExperienceActivity,
+                    this@TurnByTurnNavigation,
                     error.errorMessage,
                     Toast.LENGTH_SHORT
                 ).show()
@@ -414,6 +414,8 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         binding = ActivityTurnByTurnNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mapboxMap = binding.mapView.getMapboxMap()
@@ -422,7 +424,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         binding.mapView.location.apply {
             this.locationPuck = LocationPuck2D(
                 bearingImage = ContextCompat.getDrawable(
-                    this@TurnByTurnExperienceActivity,
+                    this@TurnByTurnNavigation,
                     R.drawable.mapbox_navigation_puck_icon
                 )
             )
@@ -438,9 +440,17 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                 NavigationOptions.Builder(this.applicationContext)
                     .accessToken("sk.eyJ1IjoiZW1lcmFsZHNvZnQzIiwiYSI6ImNsMDI4YmsweTAwcXMzbnFkN2NheWN2cXIifQ.eM00GFmtZlAse0wAZIfYlQ")
                     // comment out the location engine setting block to disable simulation
-                    .locationEngine(replayLocationEngine)
+                    // .locationEngine(replayLocationEngine)
                     .build()
-            )
+            ).apply {
+                // This is important to call as the [LocationProvider] will only start sending
+                // location updates when the trip session has started.
+                startTripSession()
+                // Register the location observer to listen to location updates received from the
+                // location provider
+                registerLocationObserver(locationObserver)
+
+            }
         }
 
         // initialize Navigation Camera
@@ -696,14 +706,14 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         binding.tripProgressCard.visibility = View.INVISIBLE
     }
 
-//    private fun startSimulation(route: DirectionsRoute) {
-//        mapboxReplayer.run {
-//            stop()
-//            clearEvents()
-//            val replayEvents = ReplayRouteMapper().mapDirectionsRouteGeometry(route)
-//            pushEvents(replayEvents)
-//            seekTo(replayEvents.first())
-//            play()
-//        }
-//    }
+    private fun startSimulation(route: DirectionsRoute) {
+        mapboxReplayer.run {
+            stop()
+            clearEvents()
+            val replayEvents = ReplayRouteMapper().mapDirectionsRouteGeometry(route)
+            pushEvents(replayEvents)
+            seekTo(replayEvents.first())
+            play()
+        }
+    }
 }

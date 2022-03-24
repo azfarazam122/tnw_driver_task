@@ -9,5 +9,7 @@ data class TaskApiConstants(
     var taskPhone: String? = null,
     var taskType: String? = null,
     var taskHaveAddOn: String? = null,
-    var taskIsPaid: String? = null
+    var taskIsPaid: String? = null,
+    var taskDestinationLong: Int? = null,
+    var taskDestinationLat: Int? = null
 )

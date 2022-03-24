@@ -20,4 +20,7 @@ object Constants {
     var trackDriver =
         "https://www.emeraldsoft.uk/projects/hamza/tnw_retail_calculator_1_2_4/web_services/mobile/trackDriver.php";
 
+    var destinationLong = ""
+    var destinationLat = ""
+
 }
