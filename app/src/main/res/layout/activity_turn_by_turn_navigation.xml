@@ -15,11 +15,11 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonToCreateRouteAndStartNavigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
-        android:text="Start Navigation"
+        android:text="Create Route"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/tripProgressCard"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,8 @@
 package com.mapbox.navigation.examples.basics
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.location.Location
@@ -8,8 +10,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.tnw_driver_navigation.Constants
 import com.example.tnw_driver_navigation.databinding.ActivityTurnByTurnNavigationBinding
+import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.api.directions.v5.models.Bearing
 import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.api.directions.v5.models.RouteOptions
@@ -73,6 +78,8 @@ import com.mapbox.navigation.ui.voice.model.SpeechError
 import com.mapbox.navigation.ui.voice.model.SpeechValue
 import com.mapbox.navigation.ui.voice.model.SpeechVolume
 import java.util.Locale
+import com.mapbox.android.core.permissions.PermissionsManager
+import com.mapbox.android.core.permissions.PermissionsManager.areLocationPermissionsGranted
 
 /**
  * This example demonstrates a basic turn-by-turn navigation experience by putting together some UI elements to showcase
@@ -99,7 +106,9 @@ import java.util.Locale
  * - At any point in time you can finish guidance or select a new destination.
  * - You can use buttons to mute/unmute voice instructions, recenter the camera, or show the route overview.
  */
-class TurnByTurnNavigation : AppCompatActivity() {
+class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
+
+    private val permissionsManager = PermissionsManager(this)
 
     private companion object {
         private const val BUTTON_ANIMATION_DURATION = 1500L
@@ -148,8 +157,8 @@ class TurnByTurnNavigation : AppCompatActivity() {
      */
     private lateinit var viewportDataSource: MapboxNavigationViewportDataSource
 
-    val customOrigin = Point.fromLngLat(-99.0, 31.0)
-    val customDestination = Point.fromLngLat(-99.0, 34.0)
+//    val customOrigin = Point.fromLngLat(-99.0, 31.0)
+//    val customDestination = Point.fromLngLat(-99.0, 34.0)
 
     /*
      * Below are generated camera padding values to ensure that the route fits well on screen while
@@ -313,7 +322,6 @@ class TurnByTurnNavigation : AppCompatActivity() {
                 location = enhancedLocation,
                 keyPoints = locationMatcherResult.keyPoints,
             )
-
             // update camera position to account for new location
             viewportDataSource.onLocationChanged(enhancedLocation)
             viewportDataSource.evaluate()
@@ -414,8 +422,13 @@ class TurnByTurnNavigation : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
+        //       getActionBar().hide()
+        getSupportActionBar()?.hide()
+        if (areLocationPermissionsGranted(this)) {
+            requestStoragePermission()
+        } else {
+            permissionsManager.requestLocationPermissions(this)
+        }
         binding = ActivityTurnByTurnNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mapboxMap = binding.mapView.getMapboxMap()
@@ -432,7 +445,36 @@ class TurnByTurnNavigation : AppCompatActivity() {
             enabled = true
         }
 
+// load map style
+        mapboxMap.loadStyleUri(
+            Style.MAPBOX_STREETS
+        ) {
+
+            binding.buttonToCreateRouteAndStartNavigation.setOnClickListener{
+                val customDestination = Point.fromLngLat(
+                    67.08420395851137, 24.88872362957835
+                )
+
+                findRoute(customDestination)
+            }
+            // add long click listener that search for a route to the clicked destination
+            binding.mapView.gestures.addOnMapLongClickListener { point ->
+                mapboxReplayer.playFirstLocation()
+//                val customDestination = Point.fromLngLat(
+//                    Constants.destinationLong.toDouble(),
+//                    Constants.destinationLat.toDouble()
+//                )
+//                val customDestination = Point.fromLngLat(
+//                    67.08420395851137, 24.88872362957835
+//                )
+//
+//                findRoute(customDestination)
+                true
+            }
+        }
+
         // initialize Mapbox Navigation
+        @SuppressLint("MissingPermission")
         mapboxNavigation = if (MapboxNavigationProvider.isCreated()) {
             MapboxNavigationProvider.retrieve()
         } else {
@@ -539,16 +581,6 @@ class TurnByTurnNavigation : AppCompatActivity() {
         val routeArrowOptions = RouteArrowOptions.Builder(this).build()
         routeArrowView = MapboxRouteArrowView(routeArrowOptions)
 
-        // load map style
-        mapboxMap.loadStyleUri(
-            Style.MAPBOX_STREETS
-        ) {
-            // add long click listener that search for a route to the clicked destination
-            binding.mapView.gestures.addOnMapLongClickListener { point ->
-                findRoute(point)
-                true
-            }
-        }
 
         // initialize view interactions
         binding.stop.setOnClickListener {
@@ -635,6 +667,7 @@ class TurnByTurnNavigation : AppCompatActivity() {
 
         // that make sure the route request is optimized
         // to allow for support of all of the Navigation SDK features
+//        val customOrigin = Point.fromLngLat(-122.09518432617189, 47.97153658265933)
         mapboxNavigation.requestRoutes(
             RouteOptions.builder()
                 .applyDefaultNavigationOptions()
@@ -714,6 +747,42 @@ class TurnByTurnNavigation : AppCompatActivity() {
             pushEvents(replayEvents)
             seekTo(replayEvents.first())
             play()
+        }
+    }
+
+    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
+        Toast.makeText(
+            this,
+            "This app needs location and storage permissions in order to show its functionality.",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    override fun onPermissionResult(granted: Boolean) {
+        if (granted) {
+            requestStoragePermission()
+        } else {
+            Toast.makeText(
+                this,
+                "You didn't grant the permissions required to use the app",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun requestStoragePermission() {
+        val permission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        val permissionsNeeded: MutableList<String> = ArrayList()
+        if (
+            ContextCompat.checkSelfPermission(this, permission) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionsNeeded.add(permission)
+            ActivityCompat.requestPermissions(
+                this,
+                permissionsNeeded.toTypedArray(),
+                10
+            )
         }
     }
 }

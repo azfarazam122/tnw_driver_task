@@ -9,6 +9,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tnw_driver_navigation.Constants.destinationLat
+import com.example.tnw_driver_navigation.Constants.destinationLong
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.activity_date_picker.*
@@ -173,10 +175,11 @@ class DatePickerActivity : AppCompatActivity() {
                                     (arrayCurrentTask[i] as JSONObject).getString("is_paid")
 
                                 task.taskDestinationLong =
-                                    (arrayCurrentTask[i] as JSONObject).getInt("long")
+                                    (arrayCurrentTask[i] as JSONObject).getDouble("long")
 
                                 task.taskDestinationLat =
-                                    (arrayCurrentTask[i] as JSONObject).getInt("lat")
+                                    (arrayCurrentTask[i] as JSONObject).getDouble("lat")
+
 
                                 taskArrayList.add(task)
                             }
