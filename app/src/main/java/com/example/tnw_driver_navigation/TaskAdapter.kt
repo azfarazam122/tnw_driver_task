@@ -240,11 +240,11 @@ class TaskAdapter(val taskList: ArrayList<TaskApiConstants>, val thisActivity: A
             lp.setMargins(0, 0, 70, 0);
             myHolder.phoneIcon.layoutParams = lp;
             if (myCurrentItem.taskType == "0" || myCurrentItem.taskType == "2") {
-                myHolder.phoneIcon.visibility = View.GONE
-                myHolder.mapIcon.visibility = View.GONE
-            } else {
                 myHolder.phoneIcon.visibility = View.VISIBLE
                 myHolder.mapIcon.visibility = View.VISIBLE
+            } else {
+                myHolder.phoneIcon.visibility = View.GONE
+                myHolder.mapIcon.visibility = View.GONE
             }
 
         } else if (myCurrentItem.taskStartDelivery != "null" && myCurrentItem.taskEndDelivery == "null") {
@@ -258,11 +258,11 @@ class TaskAdapter(val taskList: ArrayList<TaskApiConstants>, val thisActivity: A
             myHolder.phoneIcon.layoutParams = lp;
 
             if (myCurrentItem.taskType == "0" || myCurrentItem.taskType == "2") {
-                myHolder.phoneIcon.visibility = View.GONE
-                myHolder.mapIcon.visibility = View.GONE
-            } else {
                 myHolder.phoneIcon.visibility = View.VISIBLE
                 myHolder.mapIcon.visibility = View.VISIBLE
+            } else {
+                myHolder.phoneIcon.visibility = View.GONE
+                myHolder.mapIcon.visibility = View.GONE
             }
 
         } else {
@@ -276,11 +276,11 @@ class TaskAdapter(val taskList: ArrayList<TaskApiConstants>, val thisActivity: A
             myHolder.phoneIcon.layoutParams = lp;
 
             if (myCurrentItem.taskType == "0" || myCurrentItem.taskType == "2") {
-                myHolder.phoneIcon.visibility = View.GONE
-                myHolder.mapIcon.visibility = View.GONE
-            } else {
                 myHolder.phoneIcon.visibility = View.VISIBLE
                 myHolder.mapIcon.visibility = View.VISIBLE
+            } else {
+                myHolder.phoneIcon.visibility = View.GONE
+                myHolder.mapIcon.visibility = View.GONE
             }
 
         }

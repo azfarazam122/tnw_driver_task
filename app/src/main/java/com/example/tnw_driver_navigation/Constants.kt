@@ -5,6 +5,8 @@ import android.content.Context
 
 object Constants {
 
+    var logoutButtonIsClicked = false;
+
     var driverId = ""
 
     var login =

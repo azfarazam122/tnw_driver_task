@@ -14,7 +14,9 @@
         <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/background_for_loginform.xml" value="0.1195" />
         <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/background_for_loginformmainlayout.xml" value="0.1315" />
         <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/background_for_loginlogo.xml" value="0.1195" />
-        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_date_picker.xml" value="0.215625" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/location_icon.xml" value="0.2375" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/drawable/logouticon.xml" value="0.2375" />
+        <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_date_picker.xml" value="0.22" />
         <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_main.xml" value="0.215625" />
         <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_map_box.xml" value="0.215625" />
         <entry key="..\:/Android/tnw_driver_task/app/src/main/res/layout/activity_mapbox_custom_view_navigation.xml" value="0.1" />

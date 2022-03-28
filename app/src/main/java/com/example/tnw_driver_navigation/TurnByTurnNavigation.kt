@@ -454,6 +454,10 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
                 val customDestination = Point.fromLngLat(
                     67.08420395851137, 24.88872362957835
                 )
+//                val customDestination = Point.fromLngLat(
+//                    Constants.destinationLong.toDouble(),
+//                    Constants.destinationLat.toDouble()
+//                )
 
                 findRoute(customDestination)
             }

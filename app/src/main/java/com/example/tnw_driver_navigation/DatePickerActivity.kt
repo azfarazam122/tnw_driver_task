@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tnw_driver_navigation.Constants.destinationLat
 import com.example.tnw_driver_navigation.Constants.destinationLong
+import com.example.tnw_driver_navigation.Constants.logoutButtonIsClicked
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.activity_date_picker.*
@@ -45,12 +46,20 @@ class DatePickerActivity : AppCompatActivity() {
         button_date = this.button_date_1
         val backIcon: ImageView = findViewById(R.id.back_Icon)
         val backText: TextView = findViewById(R.id.back_TextView)
+        val logoutIcon: ImageView = findViewById(R.id.logout_Icon)
+        val logoutText: TextView = findViewById(R.id.logout_TextView)
 
         backIcon.setOnClickListener {
             goingBackToLoginPage()
         }
         backText.setOnClickListener {
             goingBackToLoginPage()
+        }
+        logoutIcon.setOnClickListener {
+            loggingOut()
+        }
+        logoutText.setOnClickListener {
+            loggingOut()
         }
 
         updateDateInView()
@@ -113,6 +122,7 @@ class DatePickerActivity : AppCompatActivity() {
 
         })
     }
+
 
     private fun updateDateInView() {
         val myFormat = "yyyy-MM-dd" // mention the format you need
@@ -196,7 +206,15 @@ class DatePickerActivity : AppCompatActivity() {
     }
 
 
+    private fun loggingOut() {
+        logoutButtonIsClicked = true
+        val intent =
+            Intent(this@DatePickerActivity, MainActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun goingBackToLoginPage() {
+        logoutButtonIsClicked = true
         val intent =
             Intent(this@DatePickerActivity, MainActivity::class.java)
         startActivity(intent)
