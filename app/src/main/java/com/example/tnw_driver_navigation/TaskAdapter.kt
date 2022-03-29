@@ -151,7 +151,7 @@ class TaskAdapter(val taskList: ArrayList<TaskApiConstants>, val thisActivity: A
                                         if (data == "Updated Successfully") {
                                             holder.linearLayoutOfTask.setBackgroundColor(
                                                 Color.parseColor(
-                                                    "#007225"
+                                                    "#33C759"
                                                 )
                                             )
                                             holder.bikeIcon.setImageResource(R.drawable.background_for_hidingdeliveryicon);
@@ -266,7 +266,7 @@ class TaskAdapter(val taskList: ArrayList<TaskApiConstants>, val thisActivity: A
             }
 
         } else {
-            myHolder.linearLayoutOfTask.setBackgroundColor(Color.parseColor("#007225"))
+            myHolder.linearLayoutOfTask.setBackgroundColor(Color.parseColor("#33C759"))
             myHolder.bikeIcon.setImageResource(R.drawable.background_for_hidingdeliveryicon);
             myHolder.bikeIcon.contentDescription = "Delivery Ended"
             myHolder.bikeIcon.visibility = View.GONE

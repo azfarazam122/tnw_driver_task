@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +8,7 @@
     tools:context=".DatePickerActivity">
 
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#127A6D6D"
@@ -104,14 +103,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/brandLogo">
 
 
-                <Button
-                    android:id="@+id/button_date_1"
-                    android:layout_width="272dp"
-                    android:layout_height="55dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/black"
-                    android:text="Select Date" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/selectBoxForDrivers"
+                        android:layout_width="160dp"
+                        android:layout_height="38dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        android:textAlignment="center"
+                        android:background="#DAD5D5"
+                        android:gravity="center" />
+
+                    <Button
+                        android:id="@+id/button_date_1"
+                        android:layout_width="160dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/black"
+                        android:text="Select Date" />
+
+
+
+
+                </LinearLayout>
 
 
                 <TextView
@@ -120,8 +138,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text=""
-                    android:textSize="20dp"
-                     />
+                    android:textSize="20dp" />
 
                 <ScrollView
                     android:layout_width="match_parent"

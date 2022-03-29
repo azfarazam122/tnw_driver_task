@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">tnw_driver_navigation</string>
     <string name="mapbox_access_token">sk.eyJ1IjoiZW1lcmFsZHNvZnQzIiwiYSI6ImNsMDI4YmsweTAwcXMzbnFkN2NheWN2cXIifQ.eM00GFmtZlAse0wAZIfYlQ</string>
+
+    <!--    ___________________________-->
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+    <!--    ___________________________-->
 </resources>
 
