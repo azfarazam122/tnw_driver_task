@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,8 @@ class DatePickerActivity : AppCompatActivity() {
 
     var cal = Calendar.getInstance()
 
+    var count = 0;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,11 @@ class DatePickerActivity : AppCompatActivity() {
         //       getActionBar().hide()
         getSupportActionBar()?.hide()
         taskArrayList = ArrayList<TaskApiConstants>()
+
+
+//        ======================================================
+//        ======================================================
+
 
         //______________________________________________________________________________________________
         // Spinner
@@ -61,6 +69,7 @@ class DatePickerActivity : AppCompatActivity() {
         ) {
 
             spinner.visibility = View.VISIBLE
+
         } else {
             spinner.visibility = View.GONE
 //            updateDateInView()
@@ -106,7 +115,7 @@ class DatePickerActivity : AppCompatActivity() {
                                 AdapterView.OnItemSelectedListener {
                                 override fun onItemSelected(
                                     parent: AdapterView<*>,
-                                    view: View, position: Int, id: Long
+                                    view: View, position: Int, id: Long,
                                 ) {
                                     if (categories[position] != "Select Driver") {
 
@@ -179,7 +188,7 @@ class DatePickerActivity : AppCompatActivity() {
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(
                 view: DatePicker, year: Int, monthOfYear: Int,
-                dayOfMonth: Int
+                dayOfMonth: Int,
             ) {
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
@@ -201,10 +210,12 @@ class DatePickerActivity : AppCompatActivity() {
                 val textViewIfNoTaskFound = findViewById<TextView>(R.id.ifNoTaskFound)
                 if (taskArrayList.size < 1) {
                     textViewIfNoTaskFound.text = "No Task Found"
+                    textViewIfNoTaskFound.visibility = View.VISIBLE
                     taskRecyclerView.adapter =
                         TaskAdapter(taskArrayList, this@DatePickerActivity)
                 } else {
                     textViewIfNoTaskFound.text = ""
+                    textViewIfNoTaskFound.visibility = View.GONE
                     taskRecyclerView.adapter =
                         TaskAdapter(taskArrayList, this@DatePickerActivity)
                 }
@@ -225,6 +236,38 @@ class DatePickerActivity : AppCompatActivity() {
             }
 
         })
+
+        content()
+    }
+
+    private fun content() {
+        count++
+
+//        Toast.makeText(
+//            applicationContext,
+//            "Updating Tasks",
+//            Toast.LENGTH_LONG
+//        )
+//            .show()
+
+        updateDateInView()
+        refresh(10000)
+    }
+
+    @Suppress("DEPRECATION")
+    private fun refresh(miliseconds: Long) {
+
+        val handler: Handler = Handler()
+
+        val runalbe: Runnable = Runnable {
+            run()
+        }
+
+        handler.postDelayed(runalbe, miliseconds)
+    }
+
+    private fun run() {
+        content()
     }
 
 
@@ -237,145 +280,91 @@ class DatePickerActivity : AppCompatActivity() {
 //        ______________________________________
 //        Getting All The Tasks
 
+        var currentDriverId = 0
         if (driverSelectedByAdmin != "" && driverIdSelectedByAdmin != 0) {
-            val httpAsync =
-                Constants.taskList
-                    .httpPost(
-                        listOf(
-                            "date" to dateSelected,
-                            "id" to driverIdSelectedByAdmin
-                        )
-                    )
-                    .responseString { request, response, result ->
-                        when (result) {
-                            is Result.Failure -> {
-                                val ex = result.getException()
-
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Getting Task Failed",
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-
-                            }
-                            is Result.Success -> {
-                                val data = result.get()
-
-
-                                val json_data = JSONObject(data)
-//                            val json_data_data = JSONObject(json_data["data"])
-                                val lengthOfTasks = (json_data["data"] as JSONArray).length()
-//                            ((json_data["data"] as JSONArray)[0] as JSONObject)["task"]
-                                taskArrayList.clear()
-
-                                // WHEN DRIVER IS NOT SELECTED
-                                for (i in 0..(lengthOfTasks - 1)) {
-                                    var arrayCurrentTask = (json_data["data"] as JSONArray)
-                                    val task = TaskApiConstants()
-                                    //  user.id = json_user.getInt(i)
-                                    task.taskId = (arrayCurrentTask[i] as JSONObject).getInt("id")
-                                    task.taskName =
-                                        (arrayCurrentTask[i] as JSONObject).getString("task")
-                                    task.taskTimeSlot =
-                                        (arrayCurrentTask[i] as JSONObject).getString("time_slot")
-                                    task.taskStartDelivery =
-                                        (arrayCurrentTask[i] as JSONObject).getString("start_delivery")
-                                    task.taskEndDelivery =
-                                        (arrayCurrentTask[i] as JSONObject).getString("end_delivery")
-                                    task.taskPhone =
-                                        (arrayCurrentTask[i] as JSONObject).getString("phone")
-                                    task.taskType =
-                                        (arrayCurrentTask[i] as JSONObject).getString("type")
-                                    task.taskHaveAddOn =
-                                        (arrayCurrentTask[i] as JSONObject).getString("have_add_ons")
-                                    task.taskIsPaid =
-                                        (arrayCurrentTask[i] as JSONObject).getString("is_paid")
-
-                                    task.taskDestinationLong =
-                                        (arrayCurrentTask[i] as JSONObject).getDouble("long")
-
-                                    task.taskDestinationLat =
-                                        (arrayCurrentTask[i] as JSONObject).getDouble("lat")
-
-
-                                    taskArrayList.add(task)
-                                }
-                            }
-                        }
-                    }
-
-            httpAsync.join()
-//        ______________________________________
+            currentDriverId = driverIdSelectedByAdmin
         } else {
-            val httpAsync =
-                Constants.taskList
-                    .httpPost(
-                        listOf(
-                            "date" to dateSelected,
-                            "id" to Constants.driverId.toInt()
-                        )
+            currentDriverId = Constants.driverId.toInt()
+        }
+
+        val httpAsync =
+            Constants.taskList
+                .httpPost(
+                    listOf(
+                        "date" to dateSelected,
+                        "id" to currentDriverId
                     )
-                    .responseString { request, response, result ->
-                        when (result) {
-                            is Result.Failure -> {
-                                val ex = result.getException()
+                )
+                .responseString { request, response, result ->
+                    when (result) {
+                        is Result.Failure -> {
+                            val ex = result.getException()
 
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Getting Task Failed",
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
+                            Toast.makeText(
+                                applicationContext,
+                                "Getting Task Failed",
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
 
-                            }
-                            is Result.Success -> {
-                                val data = result.get()
+                        }
+                        is Result.Success -> {
+                            val data = result.get()
 
 
-                                val json_data = JSONObject(data)
+                            val json_data = JSONObject(data)
 //                            val json_data_data = JSONObject(json_data["data"])
-                                val lengthOfTasks = (json_data["data"] as JSONArray).length()
+                            val lengthOfTasks = (json_data["data"] as JSONArray).length()
 //                            ((json_data["data"] as JSONArray)[0] as JSONObject)["task"]
-                                taskArrayList.clear()
+                            taskArrayList.clear()
 
-                                // WHEN DRIVER IS NOT SELECTED
-                                for (i in 0..(lengthOfTasks - 1)) {
-                                    var arrayCurrentTask = (json_data["data"] as JSONArray)
-                                    val task = TaskApiConstants()
-                                    //  user.id = json_user.getInt(i)
-                                    task.taskId = (arrayCurrentTask[i] as JSONObject).getInt("id")
-                                    task.taskName =
-                                        (arrayCurrentTask[i] as JSONObject).getString("task")
-                                    task.taskTimeSlot =
-                                        (arrayCurrentTask[i] as JSONObject).getString("time_slot")
-                                    task.taskStartDelivery =
-                                        (arrayCurrentTask[i] as JSONObject).getString("start_delivery")
-                                    task.taskEndDelivery =
-                                        (arrayCurrentTask[i] as JSONObject).getString("end_delivery")
-                                    task.taskPhone =
-                                        (arrayCurrentTask[i] as JSONObject).getString("phone")
-                                    task.taskType =
-                                        (arrayCurrentTask[i] as JSONObject).getString("type")
-                                    task.taskHaveAddOn =
-                                        (arrayCurrentTask[i] as JSONObject).getString("have_add_ons")
-                                    task.taskIsPaid =
-                                        (arrayCurrentTask[i] as JSONObject).getString("is_paid")
+                            // WHEN DRIVER IS NOT SELECTED
+                            for (i in 0..(lengthOfTasks - 1)) {
+                                var arrayCurrentTask = (json_data["data"] as JSONArray)
+                                val task = TaskApiConstants()
+                                //  user.id = json_user.getInt(i)
+                                task.taskId = (arrayCurrentTask[i] as JSONObject).getInt("id")
+                                task.taskName =
+                                    (arrayCurrentTask[i] as JSONObject).getString("task")
+                                task.taskTimeSlot =
+                                    (arrayCurrentTask[i] as JSONObject).getString("time_slot")
+                                task.taskStartDelivery =
+                                    (arrayCurrentTask[i] as JSONObject).getString("start_delivery")
+                                task.taskEndDelivery =
+                                    (arrayCurrentTask[i] as JSONObject).getString("end_delivery")
+                                task.taskPhone =
+                                    (arrayCurrentTask[i] as JSONObject).getString("phone")
+                                task.taskType =
+                                    (arrayCurrentTask[i] as JSONObject).getString("type")
+                                task.taskHaveAddOn =
+                                    (arrayCurrentTask[i] as JSONObject).getString("have_add_ons")
+                                task.taskIsPaid =
+                                    (arrayCurrentTask[i] as JSONObject).getString("is_paid")
 
-                                    task.taskDestinationLong =
-                                        (arrayCurrentTask[i] as JSONObject).getDouble("long")
+                                task.taskDestinationLong =
+                                    (arrayCurrentTask[i] as JSONObject).getString("long")
 
-                                    task.taskDestinationLat =
-                                        (arrayCurrentTask[i] as JSONObject).getDouble("lat")
+                                task.taskDestinationLat =
+                                    (arrayCurrentTask[i] as JSONObject).getString("lat")
 
 
-                                    taskArrayList.add(task)
-                                }
+                                taskArrayList.add(task)
                             }
                         }
                     }
+                }
 
-            httpAsync.join()
+        httpAsync.join()
+
+        val textViewIfNoTaskFound = findViewById<TextView>(R.id.ifNoTaskFound)
+        if (taskArrayList.size < 1) {
+            textViewIfNoTaskFound.text = "No Task Found"
+            textViewIfNoTaskFound.visibility = View.VISIBLE
+            taskRecyclerView.adapter?.notifyDataSetChanged();
+        } else {
+            textViewIfNoTaskFound.text = ""
+            textViewIfNoTaskFound.visibility = View.GONE
+            taskRecyclerView.adapter?.notifyDataSetChanged();
         }
 //        ______________________________________
 

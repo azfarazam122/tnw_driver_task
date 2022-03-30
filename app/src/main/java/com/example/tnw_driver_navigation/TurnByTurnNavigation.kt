@@ -460,6 +460,7 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
 //                )
 
                 findRoute(customDestination)
+                binding.buttonToCreateRouteAndStartNavigation.visibility = View.GONE
             }
             // add long click listener that search for a route to the clicked destination
             binding.mapView.gestures.addOnMapLongClickListener { point ->
@@ -741,18 +742,20 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
         binding.maneuverView.visibility = View.INVISIBLE
         binding.routeOverview.visibility = View.INVISIBLE
         binding.tripProgressCard.visibility = View.INVISIBLE
+
+        binding.buttonToCreateRouteAndStartNavigation.visibility = View.VISIBLE
     }
 
-    private fun startSimulation(route: DirectionsRoute) {
-        mapboxReplayer.run {
-            stop()
-            clearEvents()
-            val replayEvents = ReplayRouteMapper().mapDirectionsRouteGeometry(route)
-            pushEvents(replayEvents)
-            seekTo(replayEvents.first())
-            play()
-        }
-    }
+//    private fun startSimulation(route: DirectionsRoute) {
+//        mapboxReplayer.run {
+//            stop()
+//            clearEvents()
+//            val replayEvents = ReplayRouteMapper().mapDirectionsRouteGeometry(route)
+//            pushEvents(replayEvents)
+//            seekTo(replayEvents.first())
+//            play()
+//        }
+//    }
 
     override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
         Toast.makeText(
