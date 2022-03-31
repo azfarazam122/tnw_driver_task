@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -450,7 +451,15 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
             Style.MAPBOX_STREETS
         ) {
 
-            binding.buttonToCreateRouteAndStartNavigation.setOnClickListener{
+            // Use
+            @Suppress("DEPRECATION") val handler = Handler()
+            handler.postDelayed({
+
+                startNavigationCustomly()
+
+            }, 5000)
+
+            binding.buttonToCreateRouteAndStartNavigation.setOnClickListener {
                 val customDestination = Point.fromLngLat(
                     67.08420395851137, 24.88872362957835
                 )
@@ -460,7 +469,7 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
 //                )
 
                 findRoute(customDestination)
-                binding.buttonToCreateRouteAndStartNavigation.visibility = View.GONE
+//                binding.buttonToCreateRouteAndStartNavigation.visibility = View.GONE
             }
             // add long click listener that search for a route to the clicked destination
             binding.mapView.gestures.addOnMapLongClickListener { point ->
@@ -516,10 +525,12 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
             // shows/hide the recenter button depending on the camera state
             when (navigationCameraState) {
                 NavigationCameraState.TRANSITION_TO_FOLLOWING,
-                NavigationCameraState.FOLLOWING -> binding.recenter.visibility = View.INVISIBLE
+                NavigationCameraState.FOLLOWING,
+                -> binding.recenter.visibility = View.INVISIBLE
                 NavigationCameraState.TRANSITION_TO_OVERVIEW,
                 NavigationCameraState.OVERVIEW,
-                NavigationCameraState.IDLE -> binding.recenter.visibility = View.VISIBLE
+                NavigationCameraState.IDLE,
+                -> binding.recenter.visibility = View.VISIBLE
             }
         }
         // set the padding values depending on screen orientation and visible view layout
@@ -694,14 +705,14 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
             object : RouterCallback {
                 override fun onRoutesReady(
                     routes: List<DirectionsRoute>,
-                    routerOrigin: RouterOrigin
+                    routerOrigin: RouterOrigin,
                 ) {
                     setRouteAndStartNavigation(routes)
                 }
 
                 override fun onFailure(
                     reasons: List<RouterFailure>,
-                    routeOptions: RouteOptions
+                    routeOptions: RouteOptions,
                 ) {
                     // no impl
                 }
@@ -743,7 +754,7 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
         binding.routeOverview.visibility = View.INVISIBLE
         binding.tripProgressCard.visibility = View.INVISIBLE
 
-        binding.buttonToCreateRouteAndStartNavigation.visibility = View.VISIBLE
+//        binding.buttonToCreateRouteAndStartNavigation.visibility = View.VISIBLE
     }
 
 //    private fun startSimulation(route: DirectionsRoute) {
@@ -791,5 +802,18 @@ class TurnByTurnNavigation : AppCompatActivity(), PermissionsListener {
                 10
             )
         }
+    }
+
+    fun startNavigationCustomly() {
+//        val customDestination = Point.fromLngLat(
+//            67.08420395851137, 24.88872362957835
+//        )
+                val customDestination = Point.fromLngLat(
+                    Constants.destinationLong.toDouble(),
+                    Constants.destinationLat.toDouble()
+                )
+
+        findRoute(customDestination)
+        binding.buttonToCreateRouteAndStartNavigation.visibility = View.GONE
     }
 }
